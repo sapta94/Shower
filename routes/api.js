@@ -4,6 +4,7 @@ module.exports=function(settings){
     var connectionPool = settings.connectionPool;
 
 
+    //GET api to fetch all user data
     app.get('/api/allData',function(req,res){
         var userID=req.query.userID||null;
 
@@ -46,6 +47,7 @@ module.exports=function(settings){
         })
     })
 
+    // POST API to insert any user
     app.post('/api/userData',function(req,res){
         var firstName = req.body.firstName||null;
         var lastName = req.body.lastName||null;
@@ -102,7 +104,7 @@ module.exports=function(settings){
         })
     })
 
-
+    // PUT API to update any user
     app.put('/api/userData',function(req,res){
         var firstName = req.body.firstName||null;
         var lastName = req.body.lastName||null;
@@ -212,6 +214,7 @@ module.exports=function(settings){
         })
     })
 
+    //DELETE API to delete any user
     app.delete('/api/userData',function(req,res){
         var userID=req.query.userID||null
 

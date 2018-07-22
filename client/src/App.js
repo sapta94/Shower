@@ -8,6 +8,8 @@ import Modal from 'react-awesome-modal';
 import moment from 'moment'
 import qs from 'qs'
 
+
+//main component to render the content
 class App extends Component {
   constructor(props){
     super(props)
@@ -24,11 +26,14 @@ class App extends Component {
     this.props.fetchUser()
   }
 
+  //function to handle the closing of modal
   closeModal(){
     this.setState({
         modal:false
     })
   }
+
+  //function to handle the delete of user
 
   handleDelete(userID){
     console.log('userID '+userID)
@@ -83,6 +88,7 @@ class App extends Component {
   }
 }
 
+//modal to show the detail data of each user
 class Details extends React.Component {
   constructor(props) {
       super(props);
@@ -109,6 +115,7 @@ class Details extends React.Component {
       });
   }
 
+  //function to handle the change of input element
   handleChange(e){
     var formData=this.state.formData;
     formData[e.target.name]=e.target.value;
@@ -186,6 +193,7 @@ class Details extends React.Component {
   }
 }
 
+//function to use single state hub as props in the component
 function mapStateToProps({ users }) {   
   return { users };   
 }

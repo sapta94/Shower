@@ -13,11 +13,11 @@ app.use(bodyParser.json())
 
 var poolConfig = {
     connectionLimit: 10,
-    user: "root",
-    password: "",
-    database: "ShowerDB",
+    user: config['dbUser'],
+    password: config['dbPassword'],
+    database: config['dbName'],
     debug: false,
-    host:'127.0.0.1',
+    host:config['dbHost'],
     connectTimeout: 120000,
     timeout: 120000,
     multipleStatements: true

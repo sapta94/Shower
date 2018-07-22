@@ -4,7 +4,7 @@ module.exports=function(settings){
     var connectionPool = settings.connectionPool;
 
 
-    app.get('/allData',function(req,res){
+    app.get('/api/allData',function(req,res){
         var userID=req.query.userID||null;
 
         if(userID){
@@ -35,7 +35,7 @@ module.exports=function(settings){
                 }
                 var data=[];
                 rows.forEach(function(item){
-                    data.push(rows)
+                    data.push(item)
                 })
                 connection.destroy();
                 res.status(200).json({
@@ -46,10 +46,10 @@ module.exports=function(settings){
         })
     })
 
-    app.post('/userData',function(req,res){
+    app.post('/api/userData',function(req,res){
         var firstName = req.body.firstName||null;
         var lastName = req.body.lastName||null;
-        var email = req.body.email||null;
+        var email = req.body.emailID||null;
         var mobile = req.body.mobile||null;
         var dob =req.body.dob||null;
 
@@ -103,14 +103,14 @@ module.exports=function(settings){
     })
 
 
-    app.put('/userData',function(req,res){
+    app.put('/api/userData',function(req,res){
         var firstName = req.body.firstName||null;
         var lastName = req.body.lastName||null;
-        var email = req.body.email||null;
+        var email = req.body.emailID||null;
         var mobile = req.body.mobile||null;
         var dob =req.body.dob||null;
         var userID=req.body.userID||null
-
+        var time = Date.now()
         if(!userID){
             res.status(422).json({
                 status:'fail',
@@ -208,6 +208,46 @@ module.exports=function(settings){
 
                     })
                 })
+            })
+        })
+    })
+
+    app.delete('/api/userData',function(req,res){
+        var userID=req.query.userID||null
+
+        if(!userID){
+            res.status(422).json({
+                status:'fail',
+                message:'missing parameters'
+            })
+            return
+        }
+        connectionPool.getConnection(function(err,connection){
+            if(err){
+                console.log(err)  
+                res.status(503).json({
+                    status:'fail',
+                    message:err.sqlMessage
+                })
+                return 
+            }
+            connection.query('delete from UserData where UserID=?',[userID],function(err,result){
+                console.log(this.sql)
+                if(err){
+                    console.log(err)
+                    connection.destroy()
+                    res.status(503).json({
+                        status:'fail',
+                        message:err.sqlMessage
+                    })
+                    return 
+                }
+                connection.destroy();
+                res.json({
+                    status:'success',
+                    message:'record deleted'
+                })
+                return
             })
         })
     })

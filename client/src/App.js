@@ -59,7 +59,7 @@ class App extends Component {
     }
     console.log(data)
     return (
-      <div className="row clearfix">
+      <div className="row clearfix mainCard">
         <div className="col-md-6 col-md-offset-6">
         <Card>
           <CardHeader><center><b>All Users</b>{'  '}<button onClick={()=>that.openModal()} type="button" class="btn btn-success">Add {<i className="fa fa-plus" style={{fontSize:"18px"}}></i>}</button></center></CardHeader>
